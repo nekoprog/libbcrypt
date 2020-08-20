@@ -183,7 +183,7 @@ char *crypt_r(const char *key, const char *setting, void *data)
 		setting, (char *)data, CRYPT_OUTPUT_SIZE);
 }
 
-char *crypt(const char *key, const char *setting)
+char *cryptb(const char *key, const char *setting)
 {
 	static char output[CRYPT_OUTPUT_SIZE];
 
@@ -262,7 +262,7 @@ char *__crypt_gensalt(const char *prefix, unsigned long count,
 	return __crypt_gensalt_rn(prefix, count,
 		input, size, output, sizeof(output));
 }
-
+/*
 #if defined(__GLIBC__) && defined(_LIBC)
 weak_alias(__crypt_rn, crypt_rn)
 weak_alias(__crypt_ra, crypt_ra)
@@ -272,7 +272,7 @@ weak_alias(__crypt_gensalt_rn, crypt_gensalt_rn)
 weak_alias(__crypt_gensalt_ra, crypt_gensalt_ra)
 weak_alias(__crypt_gensalt, crypt_gensalt)
 weak_alias(crypt, fcrypt)
-#endif
+#endif*/
 
 #ifdef TEST
 static const char *tests[][3] = {
@@ -434,13 +434,13 @@ int main(void)
 		}
 
 		__set_errno(0);
-		p = crypt(key, setting);
+		p = cryptb(key, setting);
 		if ((!ok && !errno) || strcmp(p, hash)) {
 			printf("FAILED (crypt/%d)\n", i);
 			return 1;
 		}
 
-		if (ok && strcmp(crypt(key, hash), hash)) {
+		if (ok && strcmp(cryptb(key, hash), hash)) {
 			printf("FAILED (crypt/%d)\n", i);
 			return 1;
 		}
