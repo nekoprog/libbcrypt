@@ -24,7 +24,7 @@
 
 #ifndef __SKIP_GNU
 extern char *cryptb(__const char *key, __const char *setting);
-extern char *crypt_r(__const char *key, __const char *setting, void *data);
+extern char *crypt_rb(__const char *key, __const char *setting, void *data);
 #endif
 
 #ifndef __SKIP_OW
